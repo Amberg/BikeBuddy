@@ -9,43 +9,78 @@ export class BikeDataService {
   private partsSubject = new BehaviorSubject<Part[]>([
     {
       id: 'p1',
-      name: 'Vorderrad',
-      description: '28 Zoll, Alu-Felge, Schwalbe Marathon Plus Reifen.',
-      installationDate: new Date('2023-05-15'),
-      wearLevel: 10,
-      position: { x: 20, y: 55 }
+      name: 'Kette & Antrieb',
+      subtitle: 'Shimano Dura-Ace',
+      description: 'Shimano Dura-Ace HG-901, 11-fach.',
+      installationDate: new Date('2023-05-12'),
+      wearLevel: 85,
+      status: 'critical',
+      statusText: 'Kritisch',
+      statusColor: 'text-red-600',
+      recommendation: 'Achtung: Dieses Teil hat die Verschleißgrenze erreicht. Bitte umgehend austauschen.',
+      recommendationClass: 'bg-red-50 border-red-100 text-red-600',
+      recommendationIcon: 'fa-triangle-exclamation text-red-500',
+      position: { x: 31, y: 70 } // Adjusted for schematic
     },
     {
       id: 'p2',
-      name: 'Hinterrad',
-      description: '28 Zoll, Shimano Deore Nabe, Schwalbe Marathon Plus.',
-      installationDate: new Date('2023-05-15'),
-      wearLevel: 15,
-      position: { x: 80, y: 55 }
+      name: 'Schaltwerk',
+      subtitle: 'SRAM Red eTap',
+      description: 'SRAM Red eTap AXS, 12-fach, kabellos.',
+      installationDate: new Date('2024-01-15'),
+      wearLevel: 20,
+      status: 'good',
+      statusText: 'Gut',
+      statusColor: 'text-green-600',
+      recommendation: 'Dieses Teil ist in einwandfreiem Zustand.',
+      recommendationClass: 'bg-green-50 border-green-100 text-green-700',
+      recommendationIcon: 'fa-check-circle text-green-500',
+      position: { x: 50, y: 70 }
     },
     {
       id: 'p3',
-      name: 'Kette',
-      description: 'Shimano HG-93, 9-fach.',
-      installationDate: new Date('2024-01-10'),
-      wearLevel: 40,
-      position: { x: 50, y: 65 }
+      name: 'Vorderbremse',
+      subtitle: 'Shimano Ultegra Disc',
+      description: 'Hydraulische Scheibenbremse, 160mm Rotor.',
+      installationDate: new Date('2023-08-10'),
+      wearLevel: 45,
+      status: 'warning',
+      statusText: 'Beobachten',
+      statusColor: 'text-yellow-600',
+      recommendation: 'Normale Abnutzung sichtbar. Regelmäßige Kontrolle empfohlen.',
+      recommendationClass: 'bg-yellow-50 border-yellow-100 text-yellow-700',
+      recommendationIcon: 'fa-circle-info text-yellow-500',
+      position: { x: 75, y: 70 }
     },
     {
       id: 'p4',
-      name: 'Lenker',
-      description: 'Ergonomischer Trekking-Lenker, Alu schwarz.',
-      installationDate: new Date('2022-03-20'),
-      wearLevel: 5,
-      position: { x: 25, y: 20 }
+      name: 'Sattel',
+      subtitle: 'Fizik Antares',
+      description: 'Carbon-gestärkter Sattel für Langstrecken.',
+      installationDate: new Date('2022-01-01'),
+      wearLevel: 10,
+      status: 'good',
+      statusText: 'Gut',
+      statusColor: 'text-green-600',
+      recommendation: 'Dieses Teil ist in einwandfreiem Zustand.',
+      recommendationClass: 'bg-green-50 border-green-100 text-green-700',
+      recommendationIcon: 'fa-check-circle text-green-500',
+      position: { x: 26, y: 30 }
     },
     {
       id: 'p5',
-      name: 'Sattel',
-      description: 'Gelsattel, breit, bequem.',
-      installationDate: new Date('2022-03-20'),
-      wearLevel: 25,
-      position: { x: 45, y: 35 }
+      name: 'Lenker',
+      subtitle: 'Canyon H36 Cockpit',
+      description: 'Aero-Cockpit, Carbon, einteilig.',
+      installationDate: new Date('2022-01-01'),
+      wearLevel: 5,
+      status: 'good',
+      statusText: 'Gut',
+      statusColor: 'text-green-600',
+      recommendation: 'Dieses Teil ist in einwandfreiem Zustand.',
+      recommendationClass: 'bg-green-50 border-green-100 text-green-700',
+      recommendationIcon: 'fa-check-circle text-green-500',
+      position: { x: 72, y: 20 }
     }
   ]);
 
@@ -61,7 +96,11 @@ export class BikeDataService {
     return this.selectedPartSubject.asObservable();
   }
 
-  selectPart(partId: string): void {
+  selectPart(partId: string | null): void {
+    if (partId === null) {
+      this.selectedPartSubject.next(null);
+      return;
+    }
     const part = this.partsSubject.value.find(p => p.id === partId);
     if (part) {
       this.selectedPartSubject.next(part);
