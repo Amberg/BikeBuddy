@@ -1,0 +1,60 @@
+.part-details-container {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+
+    h2 {
+        margin-top: 0;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+.detail-row {
+    margin-bottom: 15px;
+
+    .label {
+        font-weight: bold;
+        color: #666;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .value {
+        color: #333;
+        font-size: 1.1rem;
+    }
+}
+
+.wear-indicator {
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.wear-bar {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+
+    &.high-wear {
+        background-color: #dc3545;
+    }
+}
+
+.no-selection {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px dashed #ccc;
+}

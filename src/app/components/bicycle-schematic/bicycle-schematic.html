@@ -1,0 +1,35 @@
+<div class="bicycle-schematic-container">
+  <!-- 
+       Placeholder for the bicycle image/schematic. 
+       In a real app, this would be an SVG or an image. 
+       Here we use a CSS-styled box or an SVG if available.
+  -->
+  <div class="bicycle-image-wrapper">
+    <!-- Simple schematic using SVG -->
+    <svg viewBox="0 0 100 80" class="bicycle-svg">
+      <!-- Frame -->
+      <path d="M 25 55 L 45 35 L 75 35 L 50 65 Z" fill="none" stroke="#333" stroke-width="2" />
+      <path d="M 25 55 L 25 20" fill="none" stroke="#333" stroke-width="2" /> <!-- Fork/Head tube kinda -->
+      <path d="M 75 35 L 80 55" fill="none" stroke="#333" stroke-width="2" /> <!-- Seat stay -->
+      <line x1="20" y1="20" x2="30" y2="20" stroke="#333" stroke-width="2" /> <!-- Handlebar -->
+      <line x1="45" y1="35" x2="45" y2="25" stroke="#333" stroke-width="2" /> <!-- Seat post -->
+      
+      <!-- Wheels (Visual only, parts are overlays) -->
+      <circle cx="20" cy="55" r="14" fill="none" stroke="#333" stroke-width="2" opacity="0.5"/>
+      <circle cx="80" cy="55" r="14" fill="none" stroke="#333" stroke-width="2" opacity="0.5"/>
+    </svg>
+
+    <!-- Interactive Parts Overlays -->
+    <ng-container *ngFor="let part of parts$ | async">
+      <div 
+        class="part-marker"
+        [style.left.%]="part.position?.x"
+        [style.top.%]="part.position?.y"
+        (click)="selectPart(part.id)"
+        [class.selected]="(selectedPart$ | async)?.id === part.id">
+        <div class="marker-dot"></div>
+        <span class="marker-label">{{ part.name }}</span>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="part-details-container" *ngIf="part$ | async as part; else noSelection">
+    <h2>{{ part.name }}</h2>
+
+    <div class="detail-row">
+        <span class="label">Beschreibung:</span>
+        <p class="value">{{ part.description }}</p>
+    </div>
+
+    <div class="detail-row">
+        <span class="label">Einbau Datum:</span>
+        <span class="value">{{ part.installationDate | date:'dd.MM.yyyy' }}</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="label">Abnutzung:</span>
+        <div class="wear-indicator">
+            <div class="wear-bar" [style.width.%]="part.wearLevel" [class.high-wear]="part.wearLevel > 70"></div>
+        </div>
+        <span class="value">{{ part.wearLevel }}%</span>
+    </div>
+</div>
+
+<ng-template #noSelection>
+    <div class="no-selection">
+        <p>Bitte wählen Sie ein Fahrradteil aus, um Details zu sehen.</p>
+    </div>
+</ng-template>
